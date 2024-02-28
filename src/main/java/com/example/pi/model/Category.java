@@ -4,6 +4,8 @@ package com.example.pi.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "category")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -23,4 +25,8 @@ public class Category {
     private String nom;
     @Column(name = "description")
     private String description;
+
+
+    @ManyToMany(mappedBy = "categories")
+    private List<Ressource> resources;
 }

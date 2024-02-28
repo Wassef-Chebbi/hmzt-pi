@@ -16,6 +16,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private RessourceRepository ressourceRepository;
 
 
     @Override
@@ -50,5 +52,14 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
 
+    }
+
+    @Override
+    public Ressource addResourceToCategory(Long categoryId, Ressource resource) {
+        Category category = categoryRepository.findById(categoryId).orElseThrow();
+        resource.getCategories().add(category);
+        category.getResources().add(resource);
+        ressourceRepository.save(resource);
+        return resource;
     }
 }

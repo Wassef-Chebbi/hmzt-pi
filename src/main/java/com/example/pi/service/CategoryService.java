@@ -19,4 +19,8 @@ public interface CategoryService {
     Category update(Category category);
 
     void deleteById(Long id);
+
+    Ressource addResourceToCategory(Long categoryId, Ressource resource);
+
+
 }
