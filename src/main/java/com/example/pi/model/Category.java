@@ -1,10 +1,15 @@
 package com.example.pi.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "category")
@@ -27,6 +32,8 @@ public class Category {
     private String description;
 
 
-    @ManyToMany(mappedBy = "categories")
-    private List<Ressource> resources;
+    @ManyToMany(mappedBy = "categories",fetch = FetchType.LAZY)
+//    @JsonBackReference
+    @JsonIgnore
+    private Set<Ressource> resources =new HashSet<>();
 }

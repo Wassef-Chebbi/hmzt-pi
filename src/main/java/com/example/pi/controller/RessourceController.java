@@ -1,6 +1,7 @@
 package com.example.pi.controller;
 
 
+import com.example.pi.dto.addRessource;
 import lombok.RequiredArgsConstructor;
 import com.example.pi.model.Ressource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.pi.service.RessourceService;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,9 +20,10 @@ public class RessourceController {
     @Autowired
     private final RessourceService ressourceService;
 
+
     @PostMapping("/ressources")
-    public Ressource createRessource(@RequestBody Ressource ressource) {
-        return ressourceService.save(ressource);
+    public Ressource createRessource(@RequestBody addRessource newRessource) {
+        return ressourceService.save(newRessource);
     }
 
     @GetMapping("/ressources/{id}")
@@ -38,7 +41,7 @@ public class RessourceController {
         return ressourceService.update(product);
     }
 
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteRessource(@PathVariable Long id) {
         ressourceService.deleteById(id);
     }

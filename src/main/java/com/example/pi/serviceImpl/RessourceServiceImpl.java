@@ -1,24 +1,38 @@
 package com.example.pi.serviceImpl;
 
 
+import com.example.pi.dto.addRessource;
 import com.example.pi.model.Ressource;
+import com.example.pi.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.example.pi.repository.RessourceRepository;
 import com.example.pi.service.RessourceService;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class RessourceServiceImpl implements RessourceService {
 
     @Autowired
     private RessourceRepository ressourceRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
 
 
     @Override
-    public Ressource save(Ressource ressource) {
+    public Ressource save(addRessource newRessource) {
+        Ressource ressource = Ressource.builder()
+                .nom(newRessource.getNom())
+                .description(newRessource.getDescription())
+                .categories(categoryRepository.findAllById(newRessource.categoriesIds)
+                        .stream().collect(Collectors.toSet()))
+                .build();
+
+
         return ressourceRepository.save(ressource);
     }
 
@@ -34,10 +48,8 @@ public class RessourceServiceImpl implements RessourceService {
 
     @Override
     public Ressource update(Ressource ressource) {
-        // Check if product exists before updating
         Ressource existingRessource = ressourceRepository.findById(ressource.getRessourceId()).orElse(null);
         if (existingRessource != null) {
-            // Update relevant fields and save
             existingRessource.setNom(ressource.getNom());
             existingRessource.setDescription(ressource.getDescription());
             return ressourceRepository.save(existingRessource);
