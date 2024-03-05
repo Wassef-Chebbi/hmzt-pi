@@ -11,6 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 
 public class addRessource {
+    long ressourceId;
     String nom;
     String description;
     public Set<Long> categoriesIds;

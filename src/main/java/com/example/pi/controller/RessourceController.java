@@ -37,7 +37,7 @@ public class RessourceController {
     }
 
     @PutMapping("/ressources")
-    public Ressource updateRessource(@RequestBody Ressource product) {
+    public Ressource updateRessource(@RequestBody addRessource product) {
         return ressourceService.update(product);
     }
 

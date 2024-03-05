@@ -47,11 +47,13 @@ public class RessourceServiceImpl implements RessourceService {
     }
 
     @Override
-    public Ressource update(Ressource ressource) {
+    public Ressource update(addRessource ressource) {
         Ressource existingRessource = ressourceRepository.findById(ressource.getRessourceId()).orElse(null);
         if (existingRessource != null) {
             existingRessource.setNom(ressource.getNom());
             existingRessource.setDescription(ressource.getDescription());
+            existingRessource.setCategories(categoryRepository.findAllById(ressource.categoriesIds)
+                    .stream().collect(Collectors.toSet()));
             return ressourceRepository.save(existingRessource);
         } else {
             throw new RuntimeException("Category with ID " + ressource.getRessourceId() + " not found!");

@@ -49,10 +49,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void delete(Long id) {
+        categoryRepository.delete(id);
         categoryRepository.deleteById(id);
-
     }
+
 
     @Override
     public Ressource addResourceToCategory(Long categoryId, Ressource resource) {

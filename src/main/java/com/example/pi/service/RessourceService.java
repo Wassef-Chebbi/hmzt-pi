@@ -17,7 +17,7 @@ public interface RessourceService {
 
     List<Ressource> findAll();
 
-    Ressource update(Ressource ressource);
+    Ressource update(addRessource ressource);
 
     void deleteById(Long id);
 }

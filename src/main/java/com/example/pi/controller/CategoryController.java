@@ -43,6 +43,6 @@ public class CategoryController {
 
     @DeleteMapping("/delete/{id}")
     public void deleteCategory(@PathVariable Long id) {
-        categoryService.deleteById(id);
+        categoryService.delete(id);
     }
 }
