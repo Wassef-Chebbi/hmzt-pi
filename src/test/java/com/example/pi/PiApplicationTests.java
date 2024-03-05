@@ -1,5 +1,6 @@
 package com.example.pi;
 
+import com.example.pi.dto.newRessource;
 import com.example.pi.exception.AzureBlobStorageException;
 import com.example.pi.model.Ressource;
 import com.example.pi.serviceImpl.AzureBlobStorageServiceImpl;

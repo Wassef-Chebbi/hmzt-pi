@@ -6,6 +6,7 @@ import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.models.BlobItem;
 import com.azure.storage.blob.models.BlobStorageException;
+import com.example.pi.dto.newRessource;
 import com.example.pi.exception.AzureBlobStorageException;
 import com.example.pi.model.Ressource;
 import com.example.pi.service.AzureBlobStorageService;
@@ -41,6 +42,7 @@ public class AzureBlobStorageServiceImpl implements AzureBlobStorageService {
             String path = getPath(ressource);
             BlobClient blob = blobContainerClient.getBlobClient(path);
             blob.upload(ressource.getInputStream(), false);
+
             return path;
         }catch(BlobStorageException e){
             throw new AzureBlobStorageException(e.getServiceMessage());
@@ -81,10 +83,10 @@ public class AzureBlobStorageServiceImpl implements AzureBlobStorageService {
 
     @Override
     public void delete(Ressource storage) throws AzureBlobStorageException {
-        String path=getPath(storage);
-        BlobClient client = blobContainerClient.getBlobClient(path);
-        client.delete();
-        log.info(" blob is deleted successfully");
+//        String path=getPath(storage);
+//        BlobClient client = blobContainerClient.getBlobClient(path);
+//        client.delete();
+//        log.info(" blob is deleted successfully");
 
     }
 
