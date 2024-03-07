@@ -18,4 +18,5 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
     void delete(@Param("categoryId") long categoryId);
 
 
+
 }

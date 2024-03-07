@@ -39,31 +39,17 @@ public class RessourceController {
 
     @PostMapping(value ="/ressources")
     public Ressource createRessource(
-                                     @RequestParam String nom,
-                                     @RequestParam String description,
-                                     @RequestParam(required = false) List<Long> categoriesIds, // Assuming a list of category IDs
-                                     @RequestParam String path,
-                                     @RequestParam String fileName,
-                                     @RequestPart MultipartFile file) throws AzureBlobStorageException, IOException {
 
+            @RequestBody newRessource newRessource
+                                     ) throws AzureBlobStorageException, IOException {
 
-
-
-
-
-
-        InputStream inputStream = file.getInputStream();
         Ressource res = Ressource.builder()
-                .nom(nom)
-                .description(description)
-                .fileName(fileName)
-                .path(path)
-                .categories(categoryRepository.findAllById(categoriesIds.stream().toList()).stream().collect(Collectors.toSet()))
-                .inputStream(inputStream)
+                .nom(newRessource.getNom())
+                .description(newRessource.getDescription())
+                .categories(categoryRepository.findAllById(newRessource.getCategoriesIds()).stream().collect(Collectors.toSet()))
+                .fileURL(newRessource.getURL())
                 .build();
 
-
-        azureBlobStorageService.write(res);
         return ressourceService.save(res);
     }
 

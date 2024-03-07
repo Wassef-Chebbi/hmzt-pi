@@ -31,9 +31,13 @@ public class Category {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "imageURL")
+    private String imageURL ;
 
     @ManyToMany(mappedBy = "categories",fetch = FetchType.LAZY)
 //    @JsonBackReference
     @JsonIgnore
     private Set<Ressource> resources =new HashSet<>();
+
+
 }

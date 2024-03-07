@@ -6,6 +6,7 @@ import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.models.BlobItem;
 import com.azure.storage.blob.models.BlobStorageException;
+import com.example.pi.dto.FileDTO;
 import com.example.pi.dto.newRessource;
 import com.example.pi.exception.AzureBlobStorageException;
 import com.example.pi.model.Ressource;
@@ -17,8 +18,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Component
 @Slf4j
@@ -37,13 +41,15 @@ public class AzureBlobStorageServiceImpl implements AzureBlobStorageService {
 
 
     @Override
-    public String write(Ressource ressource) throws AzureBlobStorageException {
+    public String write(FileDTO file) throws AzureBlobStorageException {
         try {
-            String path = getPath(ressource);
+            //InputStream inputStream = file.getBlob().getInputStream();
+            String path = file.getPath();
             BlobClient blob = blobContainerClient.getBlobClient(path);
-            blob.upload(ressource.getInputStream(), false);
+            blob.upload(file.getBlob().getInputStream(), false);
+            return blob.getBlobUrl();
 
-            return path;
+
         }catch(BlobStorageException e){
             throw new AzureBlobStorageException(e.getServiceMessage());
         }catch(RuntimeException e){
@@ -66,11 +72,11 @@ public class AzureBlobStorageServiceImpl implements AzureBlobStorageService {
     @Override
     public List<String> listFiles(Ressource storage) throws AzureBlobStorageException {
         try {
-            PagedIterable<BlobItem> blobList = blobContainerClient.listBlobsByHierarchy(storage.getPath() + "/");
+            //PagedIterable<BlobItem> blobList = blobContainerClient.listBlobsByHierarchy(storage.getPath() + "/");
             List<String> blobNamesList = new ArrayList<>();
-            for (BlobItem blob : blobList) {
-                blobNamesList.add(blob.getName());
-            }
+//            for (BlobItem blob : blobList) {
+//                blobNamesList.add(blob.getName());
+//            }
             return blobNamesList;
         }catch(BlobStorageException e){
             throw new AzureBlobStorageException(e.getServiceMessage());
@@ -104,11 +110,11 @@ public class AzureBlobStorageServiceImpl implements AzureBlobStorageService {
 
     }
 
-    private String getPath(Ressource storage){
-        if(StringUtils.isNotBlank(storage.getPath())
-                && StringUtils.isNotBlank(storage.getFileName())){
-            return  storage.getPath()+"/"+storage.getFileName();
-        }
-        return null;
-    }
+//    private String getPath(FileDTO storage){
+//        if(StringUtils.isNotBlank(storage.getPath())
+//                {
+//            return  storage.getPath();
+//        }
+//        return null;
+//    }
 }

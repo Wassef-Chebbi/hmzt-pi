@@ -28,8 +28,7 @@ public class RessourceServiceImpl implements RessourceService {
                 .nom(newRessource.getNom())
                 .description(newRessource.getDescription())
                 .categories(newRessource.getCategories())
-                .path(newRessource.getPath())
-                .fileName(newRessource.getFileName())
+                .fileURL(newRessource.getFileURL())
                 .build();
 
 

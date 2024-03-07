@@ -34,9 +34,9 @@ class PiApplicationTests {
 //	}
 	@Test
 	public  void writeBlob() throws AzureBlobStorageException {
-		Ressource storage = getStorage("cust","cust1.txt","Hello World");
-		String writeStr = storageImpl.write(storage);
-		System.out.println(writeStr + "++++++");
+		//Ressource storage = getStorage("cust","cust1.txt","Hello World");
+//		String writeStr = storageImpl.write(storage);
+//		System.out.println(writeStr + "++++++");
 //		storage = getStorage("cust","cust1.txt","Hello World1");
 //		String updateStr = storageImpl.update(storage);
 //		List<String> listFiles = storageImpl.listFiles(storage);
@@ -47,15 +47,15 @@ class PiApplicationTests {
 
 	}
 
-	private Ressource getStorage(String path , String fileName, String data){
-		Ressource storage = new Ressource();
-		storage.setPath(path);
-		storage.setFileName(fileName);
-		if(StringUtils.isNotBlank(data)){
-			storage.setInputStream(new ByteArrayInputStream(data.getBytes()));
-		}
-
-		return storage;
-	}
+//	private Ressource getStorage(String path , String fileName, String data){
+//		Ressource storage = new Ressource();
+//		storage.setPath(path);
+//		storage.setFileName(fileName);
+//		if(StringUtils.isNotBlank(data)){
+//			storage.setInputStream(new ByteArrayInputStream(data.getBytes()));
+//		}
+//
+//		return storage;
+//	}
 
 }

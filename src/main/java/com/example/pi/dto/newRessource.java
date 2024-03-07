@@ -23,12 +23,8 @@ public class newRessource {
 
     private String description;
 
-    private String path;
+    private String URL;
 
-    private String fileName;
-
-
-    private MultipartFile file;
 
     public Set<Long> categoriesIds  ;
 

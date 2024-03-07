@@ -39,7 +39,6 @@ public class CategoryServiceImpl implements CategoryService {
     public Category update(Category category) {
         Category existingCategory = categoryRepository.findById(category.getCategoryId()).orElse(null);
         if (existingCategory != null) {
-            // Update relevant fields and save
             existingCategory.setNom(category.getNom());
             existingCategory.setDescription(category.getDescription());
             return categoryRepository.save(existingCategory);

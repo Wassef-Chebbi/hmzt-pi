@@ -31,13 +31,16 @@ public class Ressource {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "path")
-    private String path;
-    @Column(name = "filename")
-    private String fileName;
+    @Column(name = "type")
+    private String fileURL ;
+    //= "file/ressource/"+ String.valueOf(ressourceId)
 
-    @Transient
-    private InputStream inputStream;
+
+
+
+
+
+
 
 
 
