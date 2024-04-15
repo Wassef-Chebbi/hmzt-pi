@@ -1,13 +1,10 @@
 package com.example.pi.serviceImpl;
 
-import com.azure.core.http.rest.PagedIterable;
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
-import com.azure.storage.blob.models.BlobItem;
 import com.azure.storage.blob.models.BlobStorageException;
 import com.example.pi.dto.FileDTO;
-import com.example.pi.dto.newRessource;
 import com.example.pi.exception.AzureBlobStorageException;
 import com.example.pi.model.Ressource;
 import com.example.pi.service.AzureBlobStorageService;
@@ -16,13 +13,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
-import java.io.InputStream;
 
 @Component
 @Slf4j
@@ -43,8 +36,8 @@ public class AzureBlobStorageServiceImpl implements AzureBlobStorageService {
     @Override
     public String write(FileDTO file) throws AzureBlobStorageException {
         try {
-            //InputStream inputStream = file.getBlob().getInputStream();
-            String path = file.getPath();
+
+            String path = getPath(file);
             BlobClient blob = blobContainerClient.getBlobClient(path);
             blob.upload(file.getBlob().getInputStream(), false);
             return blob.getBlobUrl();
@@ -60,9 +53,63 @@ public class AzureBlobStorageServiceImpl implements AzureBlobStorageService {
     }
 
     @Override
-    public String update(Ressource storage) throws AzureBlobStorageException {
+    public String update(FileDTO file) throws AzureBlobStorageException {
+        try {
+
+            String path = file.getPath();
+            BlobClient blob = blobContainerClient.getBlobClient(path);
+            blob.upload(file.getBlob().getInputStream(), true);
+            return blob.getBlobUrl();
+
+
+        }catch(BlobStorageException e){
+            throw new AzureBlobStorageException(e.getServiceMessage());
+        }catch(RuntimeException e){
+            throw new AzureBlobStorageException(e.getMessage());
+        }catch (Exception e){
+            throw new AzureBlobStorageException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void delete(FileDTO file) throws AzureBlobStorageException {
+        try {
+
+            String path = getPath(file);
+            BlobClient client = blobContainerClient.getBlobClient(path);
+            client.delete();
+            log.info("Blob is deleted sucessfully.");
+
+
+        } catch(BlobStorageException e){
+            throw new AzureBlobStorageException(e.getServiceMessage());
+        }catch(RuntimeException e){
+            throw new AzureBlobStorageException(e.getMessage());
+        }catch (Exception e){
+            throw new AzureBlobStorageException(e.getMessage());
+        }
+
+    }
+
+    private String getPath(FileDTO storage){
+        if(StringUtils.isNotBlank(storage.getPath())
+                && StringUtils.isNotBlank(storage.getName())){
+            return  storage.getPath()+"/"+storage.getName();
+        }
         return null;
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public byte[] read(Ressource storage) throws AzureBlobStorageException {
@@ -87,14 +134,7 @@ public class AzureBlobStorageServiceImpl implements AzureBlobStorageService {
         }
     }
 
-    @Override
-    public void delete(Ressource storage) throws AzureBlobStorageException {
-//        String path=getPath(storage);
-//        BlobClient client = blobContainerClient.getBlobClient(path);
-//        client.delete();
-//        log.info(" blob is deleted successfully");
 
-    }
 
     @Override
     public void createContainer() throws AzureBlobStorageException {
@@ -110,11 +150,6 @@ public class AzureBlobStorageServiceImpl implements AzureBlobStorageService {
 
     }
 
-//    private String getPath(FileDTO storage){
-//        if(StringUtils.isNotBlank(storage.getPath())
-//                {
-//            return  storage.getPath();
-//        }
-//        return null;
-//    }
+
 }
+

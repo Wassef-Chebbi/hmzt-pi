@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 
-public class newRessource {
+public class RessourceDTO {
 
     private long ressourceId;
 
@@ -25,7 +25,6 @@ public class newRessource {
 
     private String URL;
 
-
-    public Set<Long> categoriesIds  ;
+    public Set<Long> categoriesIds;
 
 }

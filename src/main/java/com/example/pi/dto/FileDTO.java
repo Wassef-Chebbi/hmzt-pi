@@ -11,7 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileDTO {
 
+    private String name;
+
     private String path;
+
     private MultipartFile blob;
 
 }

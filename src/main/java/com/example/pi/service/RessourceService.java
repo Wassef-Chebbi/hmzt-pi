@@ -1,7 +1,7 @@
 package com.example.pi.service;
 
 
-import com.example.pi.dto.newRessource;
+import com.example.pi.dto.RessourceDTO;
 import com.example.pi.model.Ressource;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public interface RessourceService {
 
     List<Ressource> findAll();
 
-    Ressource update(newRessource ressource);
+    Ressource update(RessourceDTO ressource);
 
     void deleteById(Long id);
 }

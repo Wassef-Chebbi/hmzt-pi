@@ -1,7 +1,7 @@
 package com.example.pi.serviceImpl;
 
 
-import com.example.pi.dto.newRessource;
+import com.example.pi.dto.RessourceDTO;
 import com.example.pi.model.Ressource;
 import com.example.pi.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class RessourceServiceImpl implements RessourceService {
     }
 
     @Override
-    public Ressource update(newRessource ressource) {
+    public Ressource update(RessourceDTO ressource) {
         Ressource existingRessource = ressourceRepository.findById(ressource.getRessourceId()).orElse(null);
         if (existingRessource != null) {
             existingRessource.setNom(ressource.getNom());

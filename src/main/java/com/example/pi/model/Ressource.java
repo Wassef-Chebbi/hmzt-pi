@@ -30,25 +30,10 @@ public class Ressource {
     private String nom;
     @Column(name = "description")
     private String description;
-
-    @Column(name = "type")
+    @Column(name = "filePath")
+    private String filePath ;
+    @Column(name = "fileURL")
     private String fileURL ;
-    //= "file/ressource/"+ String.valueOf(ressourceId)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

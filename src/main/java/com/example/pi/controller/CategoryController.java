@@ -21,22 +21,22 @@ public class CategoryController {
     @Autowired
     private final CategoryService categoryService;
 
-    @PostMapping("/categories")
+    @PostMapping("/add")
     public Category createCategory(@RequestBody Category category) {
         return categoryService.save(category);
     }
 
-    @GetMapping("/categories/{id}")
+    @GetMapping("/getById/{id}")
     public Category getCategoryById(@PathVariable Long id) {
         return categoryService.findById(id);
     }
 
-    @GetMapping("/categories")
+    @GetMapping("/getAll")
     public List<Category> getAllCategories() {
         return categoryService.findAll();
     }
 
-    @PutMapping("/categories")
+    @PutMapping("/update")
     public Category updateCategory(@RequestBody Category category) {
         return categoryService.update(category);
     }

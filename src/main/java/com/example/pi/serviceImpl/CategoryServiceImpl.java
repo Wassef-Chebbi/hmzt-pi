@@ -41,6 +41,8 @@ public class CategoryServiceImpl implements CategoryService {
         if (existingCategory != null) {
             existingCategory.setNom(category.getNom());
             existingCategory.setDescription(category.getDescription());
+            existingCategory.setImagePath(category.getImagePath());
+            existingCategory.setImageURL(category.getImageURL());
             return categoryRepository.save(existingCategory);
         } else {
             throw new RuntimeException("Category with ID " + category.getCategoryId() + " not found!");

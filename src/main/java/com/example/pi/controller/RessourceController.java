@@ -1,25 +1,17 @@
 package com.example.pi.controller;
 
 
-import com.example.pi.dto.newRessource;
+import com.example.pi.dto.RessourceDTO;
 import com.example.pi.exception.AzureBlobStorageException;
 import com.example.pi.repository.CategoryRepository;
 import com.example.pi.service.AzureBlobStorageService;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.Part;
 import lombok.RequiredArgsConstructor;
 import com.example.pi.model.Ressource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import com.example.pi.service.RessourceService;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,14 +32,14 @@ public class RessourceController {
     @PostMapping(value ="/ressources")
     public Ressource createRessource(
 
-            @RequestBody newRessource newRessource
+            @RequestBody RessourceDTO RessourceDTO
                                      ) throws AzureBlobStorageException, IOException {
 
         Ressource res = Ressource.builder()
-                .nom(newRessource.getNom())
-                .description(newRessource.getDescription())
-                .categories(categoryRepository.findAllById(newRessource.getCategoriesIds()).stream().collect(Collectors.toSet()))
-                .fileURL(newRessource.getURL())
+                .nom(RessourceDTO.getNom())
+                .description(RessourceDTO.getDescription())
+                .categories(categoryRepository.findAllById(RessourceDTO.getCategoriesIds()).stream().collect(Collectors.toSet()))
+                .fileURL(RessourceDTO.getURL())
                 .build();
 
         return ressourceService.save(res);
@@ -64,7 +56,7 @@ public class RessourceController {
     }
 
     @PutMapping("/ressources")
-    public Ressource updateRessource(@RequestBody newRessource product) {
+    public Ressource updateRessource(@RequestBody RessourceDTO product) {
         return ressourceService.update(product);
     }
 
