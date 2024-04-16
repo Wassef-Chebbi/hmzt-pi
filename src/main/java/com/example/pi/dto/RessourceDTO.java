@@ -23,7 +23,8 @@ public class RessourceDTO {
 
     private String description;
 
-    private String URL;
+    private String filePath;
+    private String fileURL;
 
     public Set<Long> categoriesIds;
 

@@ -23,13 +23,13 @@ public class RessourceController {
 
     @Autowired
     private final RessourceService ressourceService;
-    @Autowired
-    private final AzureBlobStorageService azureBlobStorageService;
+//    @Autowired
+//    private final AzureBlobStorageService azureBlobStorageService;
     @Autowired
     private CategoryRepository categoryRepository;
 
 
-    @PostMapping(value ="/ressources")
+    @PostMapping(value ="/add")
     public Ressource createRessource(
 
             @RequestBody RessourceDTO RessourceDTO
@@ -39,23 +39,24 @@ public class RessourceController {
                 .nom(RessourceDTO.getNom())
                 .description(RessourceDTO.getDescription())
                 .categories(categoryRepository.findAllById(RessourceDTO.getCategoriesIds()).stream().collect(Collectors.toSet()))
-                .fileURL(RessourceDTO.getURL())
+                .fileURL(RessourceDTO.getFileURL())
+                .filePath(RessourceDTO.getFilePath())
                 .build();
 
         return ressourceService.save(res);
     }
 
-    @GetMapping("/ressources/{id}")
+    @GetMapping("/getById/{id}")
     public Ressource getRessourceById(@PathVariable Long id) {
         return ressourceService.findById(id);
     }
 
-    @GetMapping("/ressources")
+    @GetMapping("/getAll")
     public List<Ressource> getAllRessources() {
         return ressourceService.findAll();
     }
 
-    @PutMapping("/ressources")
+    @PutMapping("/update")
     public Ressource updateRessource(@RequestBody RessourceDTO product) {
         return ressourceService.update(product);
     }

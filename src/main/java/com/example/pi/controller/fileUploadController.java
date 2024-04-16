@@ -2,10 +2,13 @@ package com.example.pi.controller;
 
 
 import com.example.pi.dto.FileDTO;
+import com.example.pi.dto.Resp;
 import com.example.pi.exception.AzureBlobStorageException;
 import com.example.pi.service.AzureBlobStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +23,7 @@ public class fileUploadController {
     private final AzureBlobStorageService azureBlobStorageService ;
 
     @PostMapping(value ="/upload")
-    public String addFile(
+    public ResponseEntity<Resp> addFile(
             @RequestParam(name = "path") String path,
             @RequestParam(name = "name") String name,
             @RequestPart(name = "file") MultipartFile file) throws AzureBlobStorageException, IOException {
@@ -32,7 +35,8 @@ public class fileUploadController {
                 .path(path)
                 .build();
 
-         return azureBlobStorageService.write(fb);
+         var st =  azureBlobStorageService.write(fb);
+         return new ResponseEntity<>(st, HttpStatus.OK);
     }
 
     @PostMapping(value ="/update")

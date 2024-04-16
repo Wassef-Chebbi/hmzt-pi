@@ -19,4 +19,6 @@ public interface RessourceService {
     Ressource update(RessourceDTO ressource);
 
     void deleteById(Long id);
+
+    List<Ressource> getRessourcesByCategoryId(Long categoryId);
 }

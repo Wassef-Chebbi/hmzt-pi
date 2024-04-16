@@ -1,6 +1,7 @@
 package com.example.pi.service;
 
 
+import com.example.pi.dto.CategoryDTO;
 import com.example.pi.model.Category;
 import com.example.pi.model.Ressource;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public interface CategoryService {
 
     List<Category> findAll();
 
-    Category update(Category category);
+    Category update(CategoryDTO category);
 
     void delete(Long id);
 

@@ -5,6 +5,7 @@ import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.models.BlobStorageException;
 import com.example.pi.dto.FileDTO;
+import com.example.pi.dto.Resp;
 import com.example.pi.exception.AzureBlobStorageException;
 import com.example.pi.model.Ressource;
 import com.example.pi.service.AzureBlobStorageService;
@@ -34,13 +35,16 @@ public class AzureBlobStorageServiceImpl implements AzureBlobStorageService {
 
 
     @Override
-    public String write(FileDTO file) throws AzureBlobStorageException {
+    public Resp write(FileDTO file) throws AzureBlobStorageException {
         try {
 
             String path = getPath(file);
             BlobClient blob = blobContainerClient.getBlobClient(path);
             blob.upload(file.getBlob().getInputStream(), false);
-            return blob.getBlobUrl();
+            Resp resp = Resp.builder()
+                    .URL( blob.getBlobUrl())
+                    .build();
+            return resp;
 
 
         }catch(BlobStorageException e){

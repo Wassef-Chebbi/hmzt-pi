@@ -1,6 +1,7 @@
 package com.example.pi.service;
 
 import com.example.pi.dto.FileDTO;
+import com.example.pi.dto.Resp;
 import com.example.pi.exception.AzureBlobStorageException;
 import com.example.pi.model.Ressource;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 public interface AzureBlobStorageService {
 
-    public String write(FileDTO file) throws AzureBlobStorageException;
+    public Resp write(FileDTO file) throws AzureBlobStorageException;
 
     public String update(FileDTO file) throws AzureBlobStorageException;
 

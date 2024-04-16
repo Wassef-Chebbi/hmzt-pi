@@ -18,7 +18,9 @@ public class CategoryDTO {
 
     private String description;
 
-    private String URL;
+    private String imagePath;
+
+    private String imageURL;
 
 
 }

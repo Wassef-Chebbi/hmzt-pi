@@ -1,6 +1,7 @@
 package com.example.pi.controller;
 
 
+import com.example.pi.dto.CategoryDTO;
 import com.example.pi.model.Category;
 import com.example.pi.model.Ressource;
 import com.example.pi.service.CategoryService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("*")
@@ -22,7 +24,16 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping("/add")
-    public Category createCategory(@RequestBody Category category) {
+    public Category createCategory(@RequestBody CategoryDTO newCategory) {
+
+        Category category = Category.builder()
+                .nom(newCategory.getNom())
+                .description(newCategory.getDescription())
+                .imagePath(newCategory.getImagePath())
+                .imageURL(newCategory.getImageURL())
+                .build();
+
+
         return categoryService.save(category);
     }
 
@@ -37,7 +48,7 @@ public class CategoryController {
     }
 
     @PutMapping("/update")
-    public Category updateCategory(@RequestBody Category category) {
+    public Category updateCategory(@RequestBody CategoryDTO category) {
         return categoryService.update(category);
     }
 

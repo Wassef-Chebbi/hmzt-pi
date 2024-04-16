@@ -1,6 +1,7 @@
 package com.example.pi.serviceImpl;
 
 
+import com.example.pi.dto.CategoryDTO;
 import com.example.pi.model.Category;
 import com.example.pi.model.Ressource;
 import com.example.pi.repository.CategoryRepository;
@@ -36,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(Category category) {
+    public Category update(CategoryDTO category) {
         Category existingCategory = categoryRepository.findById(category.getCategoryId()).orElse(null);
         if (existingCategory != null) {
             existingCategory.setNom(category.getNom());

@@ -29,6 +29,7 @@ public class RessourceServiceImpl implements RessourceService {
                 .description(newRessource.getDescription())
                 .categories(newRessource.getCategories())
                 .fileURL(newRessource.getFileURL())
+                .filePath(newRessource.getFilePath())
                 .build();
 
 
@@ -53,6 +54,8 @@ public class RessourceServiceImpl implements RessourceService {
             existingRessource.setDescription(ressource.getDescription());
             existingRessource.setCategories(categoryRepository.findAllById(ressource.categoriesIds)
                     .stream().collect(Collectors.toSet()));
+            existingRessource.setFilePath(ressource.getFilePath());
+            existingRessource.setFileURL(ressource.getFileURL());
             return ressourceRepository.save(existingRessource);
         } else {
             throw new RuntimeException("Category with ID " + ressource.getRessourceId() + " not found!");
@@ -62,5 +65,10 @@ public class RessourceServiceImpl implements RessourceService {
     @Override
     public void deleteById(Long id) {
         ressourceRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Ressource> getRessourcesByCategoryId(Long categoryId) {
+        return null;
     }
 }
