@@ -26,6 +26,9 @@ public class RessourceDTO {
     private String filePath;
     private String fileURL;
 
-    public Set<Long> categoriesIds;
+    private String imagePath;
+    private String imageURL;
+
+    public Long categoryId;
 
 }

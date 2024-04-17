@@ -27,9 +27,12 @@ public class RessourceServiceImpl implements RessourceService {
         Ressource ressource = Ressource.builder()
                 .nom(newRessource.getNom())
                 .description(newRessource.getDescription())
-                .categories(newRessource.getCategories())
+                .category(newRessource.getCategory())
                 .fileURL(newRessource.getFileURL())
                 .filePath(newRessource.getFilePath())
+                .imageURL(newRessource.getImageURL())
+                .imagePath(newRessource.getImagePath())
+
                 .build();
 
 
@@ -52,10 +55,11 @@ public class RessourceServiceImpl implements RessourceService {
         if (existingRessource != null) {
             existingRessource.setNom(ressource.getNom());
             existingRessource.setDescription(ressource.getDescription());
-            existingRessource.setCategories(categoryRepository.findAllById(ressource.categoriesIds)
-                    .stream().collect(Collectors.toSet()));
+            existingRessource.setCategory(categoryRepository.findById(ressource.categoryId).get());
             existingRessource.setFilePath(ressource.getFilePath());
             existingRessource.setFileURL(ressource.getFileURL());
+            existingRessource.setImagePath(ressource.getImagePath());
+            existingRessource.setImageURL(ressource.getImageURL());
             return ressourceRepository.save(existingRessource);
         } else {
             throw new RuntimeException("Category with ID " + ressource.getRessourceId() + " not found!");
@@ -69,6 +73,6 @@ public class RessourceServiceImpl implements RessourceService {
 
     @Override
     public List<Ressource> getRessourcesByCategoryId(Long categoryId) {
-        return null;
+        return ressourceRepository.findAllByCategoryId(categoryId);
     }
 }

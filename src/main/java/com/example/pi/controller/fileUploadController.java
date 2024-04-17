@@ -40,7 +40,7 @@ public class fileUploadController {
     }
 
     @PostMapping(value ="/update")
-    public String updateFile(
+    public ResponseEntity<Resp> updateFile(
             @RequestParam(name = "path") String path,
             @RequestPart(name = "file") MultipartFile file) throws AzureBlobStorageException, IOException {
 
@@ -50,7 +50,8 @@ public class fileUploadController {
                 .path(path)
                 .build();
 
-        return azureBlobStorageService.update(fb);
+        var st = azureBlobStorageService.update(fb);
+        return new ResponseEntity<>(st, HttpStatus.OK);
     }
 
     @DeleteMapping(value ="/delete")

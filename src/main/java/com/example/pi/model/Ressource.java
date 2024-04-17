@@ -34,16 +34,21 @@ public class Ressource {
     private String filePath ;
     @Column(name = "fileURL")
     private String fileURL ;
+    @Column(name = "imageURL")
+    private String imageURL ;
+    @Column(name = "imagePath")
+    private String imagePath ;
 
 
 
     //@JsonManagedReference
-    @ManyToMany
-    @JoinTable(name = "category_resource",
-            joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "ressourceId"),
-            inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "categoryId"))
+    @ManyToOne
+//    @JoinTable(name = "category_resource",
+//            joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "ressourceId"),
+//            inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "categoryId"))
     //@JsonIgnore
-    private Set<Category> categories = new HashSet<>();
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 
 }

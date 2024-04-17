@@ -38,9 +38,11 @@ public class RessourceController {
         Ressource res = Ressource.builder()
                 .nom(RessourceDTO.getNom())
                 .description(RessourceDTO.getDescription())
-                .categories(categoryRepository.findAllById(RessourceDTO.getCategoriesIds()).stream().collect(Collectors.toSet()))
+                .category(categoryRepository.findById(RessourceDTO.getCategoryId()).get())
                 .fileURL(RessourceDTO.getFileURL())
                 .filePath(RessourceDTO.getFilePath())
+                .imageURL(RessourceDTO.getImageURL())
+                .imagePath(RessourceDTO.getImagePath())
                 .build();
 
         return ressourceService.save(res);
@@ -49,6 +51,11 @@ public class RessourceController {
     @GetMapping("/getById/{id}")
     public Ressource getRessourceById(@PathVariable Long id) {
         return ressourceService.findById(id);
+    }
+
+    @GetMapping("/getByCategory/{id}")
+    public List<Ressource> getRessourceByCategoryId(@PathVariable Long id) {
+        return ressourceService.getRessourcesByCategoryId(id);
     }
 
     @GetMapping("/getAll")

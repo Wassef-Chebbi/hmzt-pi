@@ -12,7 +12,7 @@ public interface AzureBlobStorageService {
 
     public Resp write(FileDTO file) throws AzureBlobStorageException;
 
-    public String update(FileDTO file) throws AzureBlobStorageException;
+    public Resp update(FileDTO file) throws AzureBlobStorageException;
 
     public byte[] read(Ressource storage) throws AzureBlobStorageException;
 

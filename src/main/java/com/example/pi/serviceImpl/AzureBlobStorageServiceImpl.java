@@ -57,13 +57,16 @@ public class AzureBlobStorageServiceImpl implements AzureBlobStorageService {
     }
 
     @Override
-    public String update(FileDTO file) throws AzureBlobStorageException {
+    public Resp update(FileDTO file) throws AzureBlobStorageException {
         try {
 
             String path = file.getPath();
             BlobClient blob = blobContainerClient.getBlobClient(path);
             blob.upload(file.getBlob().getInputStream(), true);
-            return blob.getBlobUrl();
+            Resp resp = Resp.builder()
+                    .URL( blob.getBlobUrl())
+                    .build();
+            return resp;
 
 
         }catch(BlobStorageException e){

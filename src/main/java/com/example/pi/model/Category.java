@@ -35,7 +35,7 @@ public class Category {
     @Column(name = "imageURL")
     private String imageURL ;
 
-    @ManyToMany(mappedBy = "categories",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "category",fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Ressource> resources =new HashSet<>();
 

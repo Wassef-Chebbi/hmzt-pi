@@ -57,12 +57,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
 
-    @Override
-    public Ressource addResourceToCategory(Long categoryId, Ressource resource) {
-        Category category = categoryRepository.findById(categoryId).orElseThrow();
-        resource.getCategories().add(category);
-        category.getResources().add(resource);
-        ressourceRepository.save(resource);
-        return resource;
-    }
+//    @Override
+//    public Ressource addResourceToCategory(Long categoryId, Ressource resource) {
+//        Category category = categoryRepository.findById(categoryId).orElseThrow();
+//        resource.getCategories().add(category);
+//        category.getResources().add(resource);
+//        ressourceRepository.save(resource);
+//        return resource;
+//    }
 }

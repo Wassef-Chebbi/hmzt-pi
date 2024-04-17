@@ -14,4 +14,7 @@ public interface RessourceRepository extends JpaRepository<Ressource,Long> {
 //    @Query(value = "select r from Ressource r, Category c, category_resource cr  where cr.re ")
 //
 //    List<Ressource> getAllByCategoryId(@Param())
+
+    @Query("select r from Ressource r where r.category.categoryId = :categoryId")
+    List<Ressource> findAllByCategoryId(@Param("categoryId") long categoryId);
 }
